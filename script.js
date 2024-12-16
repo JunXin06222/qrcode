@@ -1,9 +1,9 @@
 let qrcode = null;
 let currentMode = 'qr';
 
-// 初始化頁面
+
 document.addEventListener('DOMContentLoaded', () => {
-    // 綁定標籤切換事件
+
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', () => switchTab(btn.dataset.tab));
     });
@@ -12,23 +12,23 @@ document.addEventListener('DOMContentLoaded', () => {
 function switchTab(mode) {
     currentMode = mode;
     
-    // 更新標籤樣式
+
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tab === mode);
     });
 
-    // 顯示/隱藏相關元素
+
     document.getElementById('barcode-type').style.display = mode === 'barcode' ? 'block' : 'none';
     document.getElementById('qrcode').style.display = mode === 'qr' ? 'block' : 'none';
     document.getElementById('barcode-container').style.display = mode === 'barcode' ? 'block' : 'none';
     document.getElementById('shorturl-container').style.display = mode === 'shorturl' ? 'block' : 'none';
     document.getElementById('download-btn').style.display = 'none';
 
-    // 更新輸入框提示文字
+
     const input = document.getElementById('text-input');
     input.placeholder = mode === 'shorturl' ? '請輸入要縮短的網址' : '請輸入文字或網址';
 
-    // 清除之前的內容
+
     document.getElementById('qrcode').innerHTML = '';
     document.getElementById('barcode').innerHTML = '';
     document.getElementById('shorturl-result').value = '';
@@ -41,7 +41,7 @@ async function generateCode() {
         return;
     }
 
-    // 顯示載入動畫
+
     const generateBtn = document.querySelector('.generate-btn');
     generateBtn.querySelector('.btn-text').style.opacity = '0';
     generateBtn.querySelector('.loading-spinner').style.display = 'block';
@@ -60,13 +60,13 @@ async function generateCode() {
             generateBarcode(text);
         }
 
-        // 顯示下載按鈕（僅對 QR Code 和條碼）
+       
         document.getElementById('download-btn').style.display = 
             currentMode !== 'shorturl' ? 'block' : 'none';
     } catch (error) {
         alert('生成失敗，請稍後再試！');
     } finally {
-        // 隱藏載入動畫
+     
         generateBtn.querySelector('.btn-text').style.opacity = '1';
         generateBtn.querySelector('.loading-spinner').style.display = 'none';
     }
